@@ -2,7 +2,7 @@
  * A TicketMachine Model
  * I have nothing to say.
  * author Sun Xiaochun @Whut
- * version 2020.09.28
+ * version 2020.10.05
  */
 
 import java.util.Scanner;
@@ -45,10 +45,25 @@ public class TicketMachine
         System.out.println("################");
         System.out.println("# Java to Heaven");
         System.out.println("# Ticket");
-        System.out.println("# " + price + "cents");
+        System.out.println("# " + getPrice() + "cents");
         System.out.println("################");
+        balance -= price;
+        total += price;
     }
 
+    //退款
+    public int refund()
+    {
+        int result = balance;
+        balance = 0;
+        return result;
+    }
+
+    //查询售票机的收入
+    public int getTotal()
+    {
+        return total;
+    }
     public static void main(String[] args)
     {
         //设定票价
@@ -67,10 +82,13 @@ public class TicketMachine
             if(ticketmachine.balance >= ticketmachine.price)
             {
                 ticketmachine.printTicket();
-                System.out.println("退回金额：" + (ticketmachine.balance-ticketmachine.price));
+                System.out.println("退回金额：" + (ticketmachine.refund()));
                 break;
             }
         }
-    }
 
+        //显示售票机收到的金额
+        System.out.println("收入：" + ticketmachine.getTotal());
+        
+    }
 }
